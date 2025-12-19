@@ -15,12 +15,13 @@
         pkgs = import nixpkgs { inherit system; };
         pkgsUnstable = import nixpkgs-unstable { inherit system; };
 
+        erlang = pkgs.erlang_27;
         gleam = pkgsUnstable.gleam;
       in {
         devShells.default = pkgs.mkShell {
           packages = [
             gleam
-            pkgs.erlang
+            erlang
             pkgs.rebar3
           ];
         };
