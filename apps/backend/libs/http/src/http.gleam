@@ -1,4 +1,5 @@
-import middlewares
+import middlewares/trace_request
+import middlewares/log_request
 import types
 
 pub fn apply_middlewares(
@@ -21,5 +22,6 @@ pub fn apply_middlewares(
   // // Known-header based CSRF protection for non-HEAD/GET requests
   // use req <- wisp.csrf_known_header_protection(req)
 
-  middlewares.log_request(req, handle_request)
+  trace_request.trace_request(req, fn(req) { log_request.log_request(req, handle_request) })
+  
 }

@@ -1,15 +1,27 @@
-import gleam/erlang
+import gleam/erlang/atom
+import gleam/option.{type Option, None, Some}
 
-import wisp/internal/random_string
+import rnd
+
+@external(erlang, "erlang", "put")
+fn erlang_put(key: atom, value: a) -> a
+
+@external(erlang, "erlang", "get")
+fn erlang_get(key: atom) -> a
 
 pub fn generate_trace_id() -> String {
-  random_string.ulid()
+  rnd.generate(10)
 }
 
 pub fn set(id: String) {
-  erlang.put("trace_id", id)
+  let _ = erlang_put(atom.create("trace_id"), id)
+
+  Nil
 }
 
 pub fn get() -> Option(String) {
-  erlang.get("trace_id")
+  case erlang_get(atom.create("trace_id")) {
+    "undefined" -> None
+    value -> Some(value)
+  }
 }

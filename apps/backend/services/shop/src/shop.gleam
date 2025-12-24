@@ -8,10 +8,10 @@ import mist
 import http
 
 fn handle_request(req: wisp.Request) -> wisp.Response {
-  http.apply_middlewares(req, fn(req) {
-    let body = "<h1>Hello, Joe!</h1>"
-    wisp.html_response(body, 200)
-  })
+  use _ <- http.apply_middlewares(req)
+
+  let body = "<h1>Hello, Joe!</h1>"
+  wisp.html_response(body, 200)
 }
 
 pub fn main() {

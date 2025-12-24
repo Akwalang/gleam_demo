@@ -1,0 +1,49 @@
+📁 libs/
+    📁 http/
+        📄 README.md
+        📄 gleam.toml
+        📄 manifest.toml
+        📁 src/
+            📄 http.gleam
+            📄 middlewares.gleam
+            📄 types.gleam
+        📁 test/
+            📄 http_middlewares_test.gleam
+    📁 infra/
+        📄 README.md
+        📄 gleam.toml
+        📄 manifest.toml
+        📁 src/
+            📄 date.gleam
+            📄 infra.gleam
+            📄 stl.gleam
+        📁 test/
+            📄 glogger_test.gleam
+    📁 tracer/
+        📄 README.md
+        📄 gleam.toml
+        📄 manifest.toml
+        📁 src/
+            📄 rnd.gleam
+            📄 tracer.gleam
+        📁 test/
+            📄 tracer_test.gleam
+📁 services/
+    📁 comments/
+        📄 README.md
+        📄 gleam.toml
+        📄 manifest.toml
+        📁 src/
+            📄 comments.gleam
+        📁 test/
+            📄 comments_test.gleam
+    📁 shop/
+        📄 README.md
+        📄 gleam.toml
+        📄 manifest.toml
+        📁 src/
+            📄 shop.gleam
+        📁 test/
+            📄 shop_test.gleam
+📄 tree.sh
+📄 tree.txt

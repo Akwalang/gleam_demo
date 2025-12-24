@@ -1,4 +1,7 @@
 import gleam/io
+import gleam/option.{None, Some}
+
+import tracer
 
 import date
 import stl
@@ -9,6 +12,13 @@ pub type Logger {
 
 pub fn new(name: String) -> Logger {
   Logger(name)
+}
+
+fn get_trace_id() -> String {
+  case tracer.get() {
+    None -> ""
+    Some(id) -> id <> " | "
+  }
 }
 
 fn write(
@@ -23,23 +33,24 @@ fn write(
   io.println(
     level <> " " <> time_color <>
     "[" <> date.now() <> "] " <> stl.reset <>
+    get_trace_id() <>
     stl.purple <> stl.italic <> component <> ": " <> stl.reset <>
     message_color <> message <> stl.reset
   )
 }
 
 pub fn dbg(logger: Logger, message: String) -> Nil {
-  write(logger, stl.bg_gray <> stl.black <> " DBG " <> stl.reset, message, stl.gray, stl.gray)
+  write(logger, stl.bg_gray <> stl.white <> " DBG " <> stl.reset, message, stl.gray, stl.gray)
 }
 
 pub fn log(logger: Logger, message: String) -> Nil {
-  write(logger, stl.bg_blue <> stl.black <> " LOG " <> stl.reset, message, stl.blue, stl.white)
+  write(logger, stl.bg_blue <> stl.white <> " LOG " <> stl.reset, message, stl.blue, stl.white)
 }
 
 pub fn warn(logger: Logger, message: String) -> Nil {
-  write(logger, stl.bg_yellow <> stl.black <> " WRN " <> stl.reset, message, stl.yellow, stl.yellow)
+  write(logger, stl.bg_yellow <> stl.white <> " WRN " <> stl.reset, message, stl.yellow, stl.yellow)
 }
 
 pub fn error(logger: Logger, message: String) -> Nil {
-  write(logger, stl.bg_red <> stl.black <> " ERR " <> stl.reset, message, stl.red, stl.red)
+  write(logger, stl.bg_red <> stl.white <> " ERR " <> stl.reset, message, stl.red, stl.red)
 }
